@@ -4,4 +4,4 @@ inputimeout==1.0.4
 packaging==23.1
 pygerrit2==2.0.15
 pyperclip==1.8.2
-requests==2.29.0
+requests==2.31.0
