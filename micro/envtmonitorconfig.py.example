@@ -1,0 +1,3 @@
+SSID = "SSID of Access Point to connect to"
+PASSWORD = "Password of Access Point to connect to"
+ENDPOINT_URL = "Full URL to the EnvironmentReading endpoint"
