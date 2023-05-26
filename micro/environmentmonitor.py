@@ -12,7 +12,7 @@ wlan.active(True)
 foo = network.WLAN.scan(wlan)
 print(foo)
 while wlan.isconnected() is False:
-    wlan.connect(tmconfig.SSID, tmconfig.PASSWORD)
+    wlan.connect(SSID, PASSWORD)
     print(wlan.ifconfig())
     time.sleep(10)
 
@@ -37,7 +37,7 @@ def upload_to_render(sensor_data):
 
     print("Timestring: ", time_string)
 
-    url = tmconfig.ENDPOINT_URL
+    url = ENDPOINT_URL
 
     # Set the headers and payload for the POST request
     headers = {"Content-Type": "application/json"}
