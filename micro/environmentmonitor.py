@@ -6,6 +6,7 @@ from machine import Pin, I2C
 
 from dht import DHT11, InvalidChecksum, InvalidPulseCount
 from envtmonitorconfig import SSID, PASSWORD, ENDPOINT_URL, ACCESS_TOKEN, SENSOR_SYSTEM_ID
+from pico_i2c_lcd import I2cLcd
 from sh1106 import SH1106_I2C
 
 WIDTH = 128
@@ -19,6 +20,14 @@ try:
 except IndexError:
     oled = None
 
+try:
+    i2c = I2C(0, sda=Pin(0), scl=Pin(1), freq=400000)
+    print("I2C Address      : " + hex(i2c.scan()[0]).upper())
+    print("I2C Configuration: " + str(i2c))
+    I2C_ADDR = i2c.scan()[0]
+    lcd = I2cLcd(i2c, I2C_ADDR, 4, 20)
+except IndexError:
+    lcd = None
 
 def push_to_display(text_string):
     if not oled:
