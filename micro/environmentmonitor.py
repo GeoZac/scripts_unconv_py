@@ -2,9 +2,9 @@ import network
 import ujson
 import urequests
 import utime as time
-from dht import DHT11, InvalidChecksum, InvalidPulseCount
 from machine import Pin
 
+from dht import DHT11, InvalidChecksum, InvalidPulseCount
 from envtmonitorconfig import SSID, PASSWORD, ENDPOINT_URL, ACCESS_TOKEN, SENSOR_SYSTEM_ID
 
 wlan = network.WLAN(network.STA_IF)
@@ -19,7 +19,7 @@ while wlan.isconnected() is False:
 
 def upload_to_render(sensor_data):
     if wlan.isconnected() is False:
-        return
+        return False
 
     local_datetime = time.localtime()
     timestamp = time.mktime(local_datetime)
