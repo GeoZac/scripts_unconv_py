@@ -2,7 +2,7 @@ import network
 import ujson
 import urequests
 import utime as time
-from dht import DHT11, InvalidPulseCount
+from dht import DHT11, InvalidChecksum, InvalidPulseCount
 from machine import Pin
 
 from envtmonitorconfig import SSID, PASSWORD, ENDPOINT_URL
@@ -80,5 +80,7 @@ while True:
 
         if sucess:
             time.sleep(5 * 50)
+    except InvalidChecksum:
+        print("Sensor failed to provide readings")
     except InvalidPulseCount:
         print("Sensor failed to provide readings")
