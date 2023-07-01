@@ -49,7 +49,7 @@ def upload_to_render(sensor_data):
     current_time = local_datetime
 
     # Format the tuple into a string in the format "YYYY-MM-DDTHH:MM:SS"
-    time_string = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}".format(
+    time_string = "{:04d}-{:02d}-{:02d}T{:02d}:{:02d}:{:02d}Z".format(
         current_time[0],
         current_time[1],
         current_time[2],
