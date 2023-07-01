@@ -2,10 +2,22 @@ import network
 import ujson
 import urequests
 import utime as time
-from machine import Pin
+from machine import Pin, I2C
 
 from dht import DHT11, InvalidChecksum, InvalidPulseCount
 from envtmonitorconfig import SSID, PASSWORD, ENDPOINT_URL, ACCESS_TOKEN, SENSOR_SYSTEM_ID
+from sh1106 import SH1106_I2C
+
+WIDTH = 128
+HEIGHT = 64
+
+try:
+    i2c = I2C(1, scl=Pin(15), sda=Pin(14), freq=200000)
+    print("I2C Address      : " + hex(i2c.scan()[0]).upper())
+    print("I2C Configuration: " + str(i2c))
+    oled = SH1106_I2C(WIDTH, HEIGHT, i2c)
+except IndexError:
+    oled = None
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
