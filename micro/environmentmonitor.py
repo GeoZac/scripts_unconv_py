@@ -64,6 +64,9 @@ def upload_to_render(sensor_data):
 
     # Print the response
     print(response.content)
+    if not response.status_code == 201:
+        print(response.status_code)
+        return False
 
     # Release the resources associated with the response
     response.close()
