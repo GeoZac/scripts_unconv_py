@@ -19,6 +19,17 @@ try:
 except IndexError:
     oled = None
 
+
+def push_to_display(text_string):
+    if not oled:
+        return
+    oled.text(text_string, 5, 5)
+    oled.show()
+    time.sleep(10)
+    oled.fill(0)
+    oled.show()
+
+
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 foo = network.WLAN.scan(wlan)
