@@ -5,7 +5,7 @@ import utime as time
 from dht import DHT11, InvalidChecksum, InvalidPulseCount
 from machine import Pin
 
-from envtmonitorconfig import SSID, PASSWORD, ENDPOINT_URL
+from envtmonitorconfig import SSID, PASSWORD, ENDPOINT_URL, ACCESS_TOKEN, SENSOR_SYSTEM_ID
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
@@ -40,12 +40,18 @@ def upload_to_render(sensor_data):
     url = ENDPOINT_URL
 
     # Set the headers and payload for the POST request
-    headers = {"Content-Type": "application/json"}
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + ACCESS_TOKEN,
+    }
 
     payload = {
         "temperature": sensor_data.temperature,
         "humidity": sensor_data.humidity,
         "timestamp": time_string,
+        "sensorSystem": {
+            "id": SENSOR_SYSTEM_ID
+        }
     }
 
     data_str = ujson.dumps(payload)
