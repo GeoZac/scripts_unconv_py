@@ -145,6 +145,18 @@ def upload_to_render(sensor_data):
         push_to_display("API Request failed")
         return False
 
+    json_format = response.json()
+    print(str(json_format['entity']['timestamp']).split("T")[1])
+    string_0 = "Success! POSTed data"
+    string_1 = "Temperature:    " + str(json_format['entity']['temperature'])
+    string_2 = "Humidity   :    " + str(json_format['entity']['humidity'])
+    string_3 = "UTC Time   :" + \
+               str(json_format['entity']['timestamp']).split("T")[1].strip("Z")
+    string_4 = "Sensor System : " + \
+               str(json_format['entity']['sensorSystem']['id'])
+    string = string_0 + string_1 + string_2 + string_3
+    push_to_display(string, timeout=10)
+
     # Release the resources associated with the response
     response.close()
 
