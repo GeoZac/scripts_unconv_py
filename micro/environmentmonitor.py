@@ -1,4 +1,5 @@
 import network
+import ntptime
 import ujson
 import urequests
 import utime as time
@@ -58,6 +59,19 @@ while wlan.isconnected() is False:
     wlan.connect(SSID, PASSWORD)
     print(wlan.ifconfig())
     time.sleep(10)
+
+push_to_display("Setting time")
+try:
+    # if needed, overwrite default time server
+    ntptime.host = "1.europe.pool.ntp.org"
+    push_to_display("Syncing time")
+    print("Local time before synchronization：%s" % str(time.localtime()))
+    ntptime.settime()
+    print("Local time after synchronization：%s" % str(time.localtime()))
+    push_to_display("Time set from NTP")
+except:
+    print("Error syncing time")
+    push_to_display("Time failed")
 
 
 def upload_to_render(sensor_data):
