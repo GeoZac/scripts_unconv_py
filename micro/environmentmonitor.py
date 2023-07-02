@@ -59,6 +59,7 @@ while wlan.isconnected() is False:
     wlan.connect(SSID, PASSWORD)
     print(wlan.ifconfig())
     time.sleep(10)
+    push_to_display(wlan.ifconfig()[3])
 
 push_to_display("Setting time")
 try:
@@ -76,6 +77,7 @@ except:
 
 def upload_to_render(sensor_data):
     if wlan.isconnected() is False:
+        push_to_display("No network")
         return False
 
     local_datetime = time.localtime()
@@ -91,6 +93,9 @@ def upload_to_render(sensor_data):
         current_time[4],
         current_time[5],
     )
+
+    hint = "Current UTC time    "
+    push_to_display(hint + time_string)
 
     print("Timestring: ", time_string)
 
@@ -114,6 +119,7 @@ def upload_to_render(sensor_data):
     data_str = ujson.dumps(payload)
 
     # Make the POST request
+    push_to_display("Posting data to web application")
     try:
         response = urequests.post(url, headers=headers, data=data_str)
     except Exception:
@@ -123,6 +129,7 @@ def upload_to_render(sensor_data):
     print(response.content)
     if not response.status_code == 201:
         print(response.status_code)
+        push_to_display("API Request failed")
         return False
 
     # Release the resources associated with the response
