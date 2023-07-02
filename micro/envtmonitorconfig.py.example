@@ -3,3 +3,10 @@ PASSWORD = "Password of Access Point to connect to"
 ENDPOINT_URL = "Full URL to the EnvironmentReading endpoint"
 ACCESS_TOKEN = "Access token generated for this sensor system"
 SENSOR_SYSTEM_ID = "Unique ID of the sensor"
+# Key-value pair of access point SSID and password
+ACCESS_POINTS = {
+    "SSID_1": "PASSWORD_1",
+    "SSID_2": "PASSWORD_2",
+    .
+    .
+}

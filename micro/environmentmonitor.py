@@ -1,3 +1,4 @@
+import re
 import network
 import ntptime
 import ujson
@@ -6,7 +7,7 @@ import utime as time
 from machine import Pin, I2C
 
 from dht import DHT11, InvalidChecksum, InvalidPulseCount
-from envtmonitorconfig import SSID, PASSWORD, ENDPOINT_URL, ACCESS_TOKEN, SENSOR_SYSTEM_ID
+from envtmonitorconfig import SSID, PASSWORD, ENDPOINT_URL, ACCESS_TOKEN, SENSOR_SYSTEM_ID, ACCESS_POINTS
 from pico_i2c_lcd import I2cLcd
 from sh1106 import SH1106_I2C
 
@@ -49,6 +50,17 @@ def push_to_display(text_string, timeout=5):
     time.sleep(timeout)
     oled.fill(0)
     oled.show()
+
+
+def match_available_ap_with_scan_results(results):
+    if SSID is not None and PASSWORD is not None:
+        return SSID, PASSWORD
+    for result in results:
+        ap_name = result[0].decode('UTF-8')
+        if any(re.search(known_ap, ap_name) for known_ap in ACCESS_POINTS):
+            ssid_name = ap_name
+            ssid_pass = ACCESS_POINTS[ap_name]
+            return ssid_name, ssid_pass
 
 
 wlan = network.WLAN(network.STA_IF)
