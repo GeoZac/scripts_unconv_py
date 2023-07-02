@@ -53,8 +53,8 @@ def push_to_display(text_string, timeout=5):
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
-foo = network.WLAN.scan(wlan)
-print(foo)
+scan_results = network.WLAN.scan(wlan)
+print(scan_results)
 while wlan.isconnected() is False:
     wlan.connect(SSID, PASSWORD)
     print(wlan.ifconfig())
@@ -149,9 +149,9 @@ while True:
         print("Humidity: {}".format(sensor.humidity))
 
         print("Initiate  upload")
-        sucess = upload_to_render(sensor)
+        success = upload_to_render(sensor)
 
-        if sucess:
+        if success:
             time.sleep(5 * 50)
     except InvalidChecksum:
         print("Sensor failed to provide readings")
