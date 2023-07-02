@@ -30,22 +30,22 @@ except IndexError:
     lcd = None
 
 
-def push_to_lcd_display(text_string):
+def push_to_lcd_display(text_string, timeout=5):
     lcd.backlight_on()
     lcd.putstr(text_string)
-    time.sleep(5)
+    time.sleep(timeout)
     lcd.clear()
     lcd.backlight_off()
 
 
-def push_to_display(text_string):
+def push_to_display(text_string, timeout=5):
     if lcd:
         push_to_lcd_display(text_string)
     if not oled:
         return
     oled.text(text_string, 5, 5)
     oled.show()
-    time.sleep(10)
+    time.sleep(timeout)
     oled.fill(0)
     oled.show()
 
