@@ -1,8 +1,11 @@
 args==0.1.0
+beautifulsoup4==4.12.2
 certifi==2023.7.22
 charset-normalizer==3.3.0
 clint==0.5.1
 colorama==0.4.6
+gitdb==4.0.10
+GitPython==3.1.40
 idna==3.4
 inputimeout==1.0.4
 packaging==23.1
@@ -10,4 +13,6 @@ pbr==5.11.1
 pygerrit2==2.0.15
 pyperclip==1.8.2
 requests==2.31.0
+smmap==5.0.1
+soupsieve==2.5
 urllib3==2.0.7
