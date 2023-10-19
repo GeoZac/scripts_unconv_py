@@ -16,13 +16,13 @@ def assertions_convertor(
 
     java_code = "\n"
 
-    java_code += f'\t.andExpect(header().string("Content-Type", is("{CONTENT_TYPE}")))\n'
+    java_code += (
+        f'\t.andExpect(header().string("Content-Type", is("{CONTENT_TYPE}")))\n'
+    )
     java_code += f"\t.andExpect(jsonPath(\"$.type\", is(\"{data['type']}\")))\n"
     java_code += f"\t.andExpect(jsonPath(\"$.title\", is(\"{data['title']}\")))\n"
     java_code += f"\t.andExpect(jsonPath(\"$.status\", is({data['status']})))\n"
-    java_code += (
-        f"\t.andExpect(jsonPath(\"$.violations\", hasSize({len(data['violations'])})))\n"
-    )
+    java_code += f"\t.andExpect(jsonPath(\"$.violations\", hasSize({len(data['violations'])})))\n"
 
     count = 0
     for violation in data["violations"]:
