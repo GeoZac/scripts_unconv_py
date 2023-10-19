@@ -4,10 +4,11 @@ import os
 CONTENT_TYPE = "application/problem+json"
 
 
-def assertions_convertor():
+def assertions_convertor(
+    file_name="violations.json",
+):
     script_dir = os.path.dirname(__file__)
 
-    file_name = "violations.json"
     file_path = os.path.join(script_dir, file_name)
 
     with open(file_path, "r", encoding="utf-8") as json_file:
