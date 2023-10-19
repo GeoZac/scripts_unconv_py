@@ -1,0 +1,9 @@
+[MASTER]
+
+# Maximum number of characters on a single line. 
+max-line-length=120
+
+# Diable specific rules, I'm too lazy to fix
+disable=
+    C0114, # missing-module-docstring
+    C0116  # missing-function-docstring
