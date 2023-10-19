@@ -6,3 +6,5 @@ __pycache__/
 .idea/
 
 micro/envtmonitorconfig.py
+
+violations.json
