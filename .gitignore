@@ -8,3 +8,5 @@ __pycache__/
 micro/envtmonitorconfig.py
 
 violations.json
+
+credentials.json
