@@ -19,7 +19,7 @@ VENDOR_LESS = True
 
 
 def get_block_list():
-    with open("useless_props.txt", "r") as infile:
+    with open("useless_props.txt", "r", encoding="utf-8") as infile:
         props = infile.read().splitlines()
         return [prop.split("=")[0] for prop in props]
 
@@ -40,7 +40,7 @@ def read_prop_file(prop_file, dump=False, footer=None, blocked=None):
     if blocked is None:
         blocked = []
     props = []
-    with open(prop_file, mode="r") as in_prop:
+    with open(prop_file, mode="r", encoding="utf-8") as in_prop:
         raw_props = in_prop.read().splitlines()
 
     skip = dump
