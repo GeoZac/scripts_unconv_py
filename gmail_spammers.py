@@ -20,6 +20,7 @@ from bokeh.palettes import Plasma256, linear_palette, Turbo256
 SCOPES = ["https://www.googleapis.com/auth/gmail.readonly"]
 
 TOKEN_FILE = "token.json"
+CREDS_FILE = "credentials.json"
 
 
 def plot_chart(spammers):
@@ -103,13 +104,13 @@ def main():
             print("Refreshing token")
             creds.refresh(Request())
         else:
-            if not os.path.exists("credentials.json"):
+            if not os.path.exists(CREDS_FILE):
                 print("Project credentials not found, exiting")
                 return
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(CREDS_FILE, SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open(TOKEN_FILE, "w") as token:
+        with open(TOKEN_FILE, "w", encoding="utf-8") as token:
             token.write(creds.to_json())
 
     spammers = []
