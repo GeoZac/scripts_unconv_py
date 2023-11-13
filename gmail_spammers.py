@@ -103,6 +103,9 @@ def main():
             print("Refreshing token")
             creds.refresh(Request())
         else:
+            if not os.path.exists("credentials.json"):
+                print("Project credentials not found, exiting")
+                return
             flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
