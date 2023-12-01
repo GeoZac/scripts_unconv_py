@@ -16,11 +16,22 @@ METHOD_STUB = """
 def document_helper(test_file):
     with open(test_file, "r", encoding="utf-8") as file:
         java_code = [line.strip() for line in file.readlines()]
+
     found_test = False
+    has_document = False
+
     for line in java_code:
         if "@Test" in line:
             found_test = True
+            has_document = False
             continue
+
+        if "document(" in line:
+            has_document = True
+            continue
+
+        if has_document:
+            print("Already documented")
 
         if found_test:
             match = method_pattern.search(line)
