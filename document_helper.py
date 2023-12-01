@@ -3,6 +3,15 @@ import sys
 
 method_pattern = re.compile(r"\b\w+\s+(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+\s*)?\{")
 
+METHOD_STUB = """
+.andDo(
+    document(
+        "{document_name}",
+        preprocessRequest(prettyPrint),
+        preprocessResponse(prettyPrint))
+)
+"""
+
 
 def document_helper(test_file):
     with open(test_file, "r", encoding="utf-8") as file:
@@ -18,7 +27,7 @@ def document_helper(test_file):
 
             if match:
                 method_name = match.group(1)
-                print(method_name)
+                print(METHOD_STUB.format(document_name=method_name))
             found_test = False
 
 
