@@ -1,4 +1,7 @@
+import re
 import sys
+
+method_pattern = re.compile(r"\b\w+\s+(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+\s*)?\{")
 
 
 def document_helper(test_file):
@@ -11,7 +14,11 @@ def document_helper(test_file):
             continue
 
         if found_test:
-            print(line)
+            match = method_pattern.search(line)
+
+            if match:
+                method_name = match.group(1)
+                print(method_name)
             found_test = False
 
 
