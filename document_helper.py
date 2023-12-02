@@ -27,7 +27,12 @@ def document_helper(test_file):
         method_content = match.group(2)
 
         if "document(" not in method_content:
-            print(METHOD_STUB.format(document_name=method_name))
+            has_document = False
+
+        if has_document:
+            continue
+
+        print(METHOD_STUB.format(document_name=method_name))
 
 
 if __name__ == "__main__":
