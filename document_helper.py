@@ -1,7 +1,7 @@
 import re
 import sys
 
-method_pattern = re.compile(r"\b\w+\s+(\w+)\s*\([^)]*\)\s*(?:throws\s+\w+\s*)?\{")
+method_pattern = re.compile(r"@Test\s*.*\s*void\s+(\w+)\s*\(\s*\)([\s\S]*?)\}")
 
 METHOD_STUB = """
 .andDo(
@@ -15,18 +15,20 @@ METHOD_STUB = """
 
 def document_helper(test_file):
     with open(test_file, "r", encoding="utf-8") as file:
-        java_code = [line.strip() for line in file.readlines()]
+        java_code = file.read()
+
+    matches = re.finditer(method_pattern, java_code)
 
     found_test = False
     has_document = False
 
-    for line in java_code:
-        if "@Test" in line:
+    for match in matches:
+        if "@Test" in match:
             found_test = True
             has_document = False
             continue
 
-        if "document(" in line:
+        if "document(" in match:
             has_document = True
             continue
 
@@ -34,7 +36,7 @@ def document_helper(test_file):
             print("Already documented")
 
         if found_test:
-            match = method_pattern.search(line)
+            match = method_pattern.search(match)
 
             if match:
                 method_name = match.group(1)
