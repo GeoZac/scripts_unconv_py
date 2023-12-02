@@ -23,25 +23,11 @@ def document_helper(test_file):
     has_document = False
 
     for match in matches:
-        if "@Test" in match:
-            found_test = True
-            has_document = False
-            continue
+        method_name = match.group(1)
+        method_content = match.group(2)
 
-        if "document(" in match:
-            has_document = True
-            continue
-
-        if has_document:
-            print("Already documented")
-
-        if found_test:
-            match = method_pattern.search(match)
-
-            if match:
-                method_name = match.group(1)
-                print(METHOD_STUB.format(document_name=method_name))
-            found_test = False
+        if "document(" not in method_content:
+            print(METHOD_STUB.format(document_name=method_name))
 
 
 if __name__ == "__main__":
