@@ -1,3 +1,4 @@
+from os import path
 import re
 import sys
 
@@ -13,7 +14,7 @@ METHOD_STUB = """
 """
 
 
-def document_helper(test_file):
+def parse_file(test_file):
     with open(test_file, "r", encoding="utf-8") as file:
         java_code = file.read()
 
@@ -49,6 +50,12 @@ def document_helper(test_file):
 
     print(f"Total Tests: {total_tests}")
     print(f"Need docs  : {no_doc_count}")
+
+
+def document_helper(argument):
+    is_file = path.isfile(argument)
+    if is_file:
+        parse_file(argument)
 
 
 if __name__ == "__main__":
