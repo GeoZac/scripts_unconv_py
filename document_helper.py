@@ -1,4 +1,5 @@
 from os import path
+import glob
 import re
 import sys
 
@@ -56,6 +57,10 @@ def document_helper(argument):
     is_file = path.isfile(argument)
     if is_file:
         parse_file(argument)
+    else:
+        java_files = glob.glob(f"{argument}/*.java")
+        for file_path in java_files:
+            parse_file(file_path)
 
 
 if __name__ == "__main__":
