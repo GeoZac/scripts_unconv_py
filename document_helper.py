@@ -3,11 +3,11 @@ import sys
 
 method_pattern = re.compile(r"@Test\s*.*\s*void\s+(\w+)\s*\(\s*\)([\s\S]*?)\}")
 
+FORMAT_CONTENT = "\n\tpreprocessRequest(prettyPrint),"
 METHOD_STUB = """
 .andDo(
     document(
-        "{document_name}",
-        preprocessRequest(prettyPrint),
+        "{document_name}",{request_content}
         preprocessResponse(prettyPrint))
 )
 """
@@ -23,16 +23,25 @@ def document_helper(test_file):
     has_document = False
 
     for match in matches:
+        request_arg = ""
         method_name = match.group(1)
         method_content = match.group(2)
 
         if "document(" not in method_content:
             has_document = False
 
+        if "content(" in method_content:
+            request_arg = FORMAT_CONTENT
+
         if has_document:
             continue
 
-        print(METHOD_STUB.format(document_name=method_name))
+        print(
+            METHOD_STUB.format(
+                document_name=method_name,
+                request_content=request_arg,
+            )
+        )
 
 
 if __name__ == "__main__":
