@@ -21,14 +21,18 @@ def document_helper(test_file):
 
     found_test = False
     has_document = False
+    total_tests = 0
+    no_doc_count = 0
 
     for match in matches:
+        total_tests += 1
         request_arg = ""
         method_name = match.group(1)
         method_content = match.group(2)
 
         if "document(" not in method_content:
             has_document = False
+            no_doc_count += 1
 
         if "content(" in method_content:
             request_arg = FORMAT_CONTENT
@@ -42,6 +46,9 @@ def document_helper(test_file):
                 request_content=request_arg,
             )
         )
+
+    print(f"Total Tests: {total_tests}")
+    print(f"Need docs  : {no_doc_count}")
 
 
 if __name__ == "__main__":
