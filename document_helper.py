@@ -52,15 +52,24 @@ def parse_file(test_file):
     print(f"Total Tests: {total_tests}")
     print(f"Need docs  : {no_doc_count}")
 
+    return no_doc_count, total_tests
+
 
 def document_helper(argument):
     is_file = path.isfile(argument)
     if is_file:
         parse_file(argument)
     else:
+        no_doc_count = 0
+        total_tests = 0
         java_files = glob.glob(f"{argument}/*.java")
         for file_path in java_files:
-            parse_file(file_path)
+            a, b = parse_file(file_path)
+            no_doc_count += a
+            total_tests += b
+
+        print(f"Total Tests in dir: {total_tests}")
+        print(f"Need docs in dir  : {no_doc_count}")
 
 
 if __name__ == "__main__":
