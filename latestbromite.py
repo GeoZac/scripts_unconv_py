@@ -35,7 +35,7 @@ def get_file_hash(file_name):
 
 
 def fetch_file(url, filename, file_size):
-    asset_file_data = get(url, stream=True)
+    asset_file_data = get(url, stream=True, timeout=10)
     with open(filename, "wb") as out_file:
         print(filename)
         total_length = int(file_size)
@@ -95,7 +95,7 @@ def update_assets(tag, assets):
 def get_latest_bromite():
     repo_name = "bromite/bromite"
     repo_url = f"https://api.github.com/repos/{repo_name}/releases"
-    data = get(repo_url).json()
+    data = get(repo_url, timeout=10).json()
     index = 0
     skip_version = False
     tag_name = data[index]["tag_name"]
@@ -163,7 +163,7 @@ def latest_bromite():
 
 def check_internet():
     try:
-        get("https://api.github.com")
+        get("https://api.github.com", timeout=10)
     except exceptions.ConnectionError:
         print("No internet, bailing...")
         sys.exit(0)
