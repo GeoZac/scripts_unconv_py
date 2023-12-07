@@ -73,4 +73,6 @@ def document_helper(argument):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        sys.exit(f"usage: {sys.argv[0]} Java test file or directory with test files")
     document_helper(sys.argv[1])
