@@ -17,11 +17,21 @@ def push_gist(gist_cn):
     gist_id = "e4c7f3c3c451b859c7c70e43837e08c2"
 
     headers = {"Authorization": f"token {gist_tn}"}
+    req_data = dumps(
+        {
+            "files": {
+                gist_fn: {
+                    "content": gist_cn,
+                },
+            },
+        }
+    )
+
     g_response = patch(
         f"https://api.github.com/gists/{gist_id}",
-        data=dumps({"files": {gist_fn: {"content": gist_cn}}}),
+        data=req_data,
         headers=headers,
-        timeout=5
+        timeout=5,
     )
     if g_response.status_code != 200:
         print(f"GitHub API call failed with {g_response.status_code}")
