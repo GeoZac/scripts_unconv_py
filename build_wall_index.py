@@ -21,6 +21,7 @@ def push_gist(gist_cn):
         f"https://api.github.com/gists/{gist_id}",
         data=dumps({"files": {gist_fn: {"content": gist_cn}}}),
         headers=headers,
+        timeout=5
     )
     if g_response.status_code != 200:
         print(f"GitHub API call failed with {g_response.status_code}")
@@ -35,7 +36,7 @@ def make_unsplash_api_call(page_no):
         "orientation": "portrait",
         "client_id": getenv("UNSPLASH_KEY"),
     }
-    unsplash_response = get(u_api_url, params=params)
+    unsplash_response = get(u_api_url, params=params, timeout=5)
     if unsplash_response.status_code == 200:
         return unsplash_response.json()
 
@@ -48,7 +49,7 @@ def parse_json(u_response, wall_list):
     for wall in u_response["results"]:
         urls = wall["urls"]
         r_url = urls["raw"]
-        new = dict()
+        new = {}
         r_patrn = re.compile(r"(?<=.com/).*(?=\?ixid)")
         r_match = r_patrn.search(r_url).group()
         new["filename"] = f"{r_match}.jpg"
@@ -87,8 +88,8 @@ def generate(arg):
     if raw_url is None:
         sys.exit(0)
     placeholder_line_found = False
-    with open(join(dirname(realpath(__file__)), "stub.xml"), "r") as input_file:
-        with open(join(arg, "config.xml"), "w") as output_file:
+    with open(join(dirname(realpath(__file__)), "stub.xml"), "r", encoding="utf-8") as input_file:
+        with open(join(arg, "config.xml"), "w", encoding="utf-8") as output_file:
             for line in input_file:
                 # If we've found the spot to add url, add it.
                 if line.strip() == "<!-- index_raw_url_here -->":
