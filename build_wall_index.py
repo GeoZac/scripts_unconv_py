@@ -100,8 +100,22 @@ def generate(arg):
     if raw_url is None:
         sys.exit(0)
     placeholder_line_found = False
-    with open(join(dirname(realpath(__file__)), "stub.xml"), "r", encoding="utf-8") as input_file:
-        with open(join(arg, "config.xml"), "w", encoding="utf-8") as output_file:
+    with open(
+        join(
+            dirname(realpath(__file__)),
+            "stub.xml",
+        ),
+        "r",
+        encoding="utf-8",
+    ) as input_file:
+        with open(
+            join(
+                arg,
+                "config.xml",
+            ),
+            "w",
+            encoding="utf-8",
+        ) as output_file:
             for line in input_file:
                 # If we've found the spot to add url, add it.
                 if line.strip() == "<!-- index_raw_url_here -->":
@@ -111,7 +125,7 @@ def generate(arg):
                 output_file.write(line)
     if not placeholder_line_found:
         raise ValueError(
-            "Failed: Improper stub file"
+            "Failed: Improper stub file",
         )
 
 
@@ -119,7 +133,9 @@ def main():
     if len(argv) > 1:
         generate(argv[1])
     else:
-        raise ValueError("Pass output file location argument")
+        raise ValueError(
+            "Pass output file location argument",
+        )
 
 
 if __name__ == "__main__":
