@@ -40,11 +40,12 @@ def push_gist(gist_cn):
 
 
 def make_unsplash_api_call(page_no):
-    u_api_url = f"https://api.unsplash.com/search/photos?page={page_no}"
+    u_api_url = f"https://api.unsplash.com/search/photos"
     params = {
         "query": "wallpapers",
         "orientation": "portrait",
         "client_id": getenv("UNSPLASH_KEY"),
+        "page": page_no,
     }
     unsplash_response = get(u_api_url, params=params, timeout=5)
     if unsplash_response.status_code == 200:
@@ -80,6 +81,7 @@ def build_index():
     while count < max_count:
         u_response = make_unsplash_api_call(rand_page)
         if u_response is None:
+            print("Unsplash API call failed")
             sys.exit(0)
         wall_list = parse_json(u_response, wall_list)
         count = len(wall_list)
