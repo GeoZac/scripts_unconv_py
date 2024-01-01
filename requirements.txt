@@ -4,7 +4,7 @@ astroid==3.0.1
 beautifulsoup4==4.12.2
 bokeh==3.3.2
 cachetools==4.2.2
-certifi==2023.7.22
+certifi==2023.11.17
 charset-normalizer==3.3.2
 clint==0.5.1
 colorama==0.4.6
