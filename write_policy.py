@@ -19,7 +19,7 @@ skip_contexts = [
 def write_policy():
     fixes = []
 
-    with open(argv[1], "r", encoding="utf8") as den_file:
+    with open(argv[1], "r", encoding="utf-8") as den_file:
         denials = den_file.readlines()
 
     # Write the source filename as a header
@@ -47,7 +47,7 @@ def write_policy():
     # Get it sorted so i can make macros out of it
     fixes.sort()
 
-    with open("fixes.txt", "w") as fix_file:
+    with open("fixes.txt", "w", encoding="utf-8") as fix_file:
         fix_file.writelines(fixes)
 
 
