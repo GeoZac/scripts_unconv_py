@@ -50,6 +50,10 @@ def read_prop_file(prop_file, dump=False, footer=None, blocked=None):
 
         if raw_prop.startswith("#") or skip:
             continue
+
+        if len(raw_prop)== 0:
+            continue
+
         try:
             key, value = raw_prop.split("=")
             if key in blocked:
