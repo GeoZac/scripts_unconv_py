@@ -218,8 +218,8 @@ def divvy_props(arg1, arg2):
         4: "product",
     }
 
-    tree_dir = getcwd() + "\\" + arg1
-    dump_dir = getcwd() + "\\" + arg2
+    tree_dir = path.join(getcwd(), arg1)
+    dump_dir = path.join(getcwd(), arg2)
 
     dump_props = collect_props_from_dump(dump_dir)
     tree_props = collect_props_from_tree(tree_dir)
