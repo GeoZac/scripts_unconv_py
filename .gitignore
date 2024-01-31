@@ -9,4 +9,6 @@ micro/envtmonitorconfig.py
 
 violations.json
 
+# gmail spammers
 credentials.json
+token.json
