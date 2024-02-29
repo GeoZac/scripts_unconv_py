@@ -25,6 +25,7 @@ def parse_file(test_file):
     has_document = False
     total_tests = 0
     no_doc_count = 0
+    mismatch_name = []
 
     for match in matches:
         total_tests += 1
@@ -39,7 +40,7 @@ def parse_file(test_file):
             doc_name = re.search(r'document\(\s*["\'](\w+)["\']', method_content).group(1)
             
             if doc_name != method_name:
-                pass
+                mismatch_name.append(f"{method_name}|{doc_name}")
 
         if "content(" in method_content:
             request_arg = FORMAT_CONTENT
@@ -59,7 +60,7 @@ def parse_file(test_file):
     print(f"Need docs  : {no_doc_count}")
     print("-------------------------------------")
 
-    return no_doc_count, total_tests
+    return no_doc_count, total_tests, mismatch_name
 
 
 def document_helper(argument):
@@ -69,11 +70,13 @@ def document_helper(argument):
     else:
         no_doc_count = 0
         total_tests = 0
+        mismatched = []
         java_files = glob.glob(f"{argument}/*.java")
         for file_path in java_files:
-            a, b = parse_file(file_path)
+            a, b, c = parse_file(file_path)
             no_doc_count += a
             total_tests += b
+            mismatched.extend(c)
 
         print("-------------------------------------")
         print(f"Total Tests in dir: {total_tests}")
