@@ -35,6 +35,11 @@ def parse_file(test_file):
         if "document(" not in method_content:
             has_document = False
             no_doc_count += 1
+        else:
+            doc_name = re.search(r'document\(\s*["\'](\w+)["\']', method_content).group(1)
+            
+            if doc_name != method_name:
+                pass
 
         if "content(" in method_content:
             request_arg = FORMAT_CONTENT
