@@ -62,6 +62,14 @@ def parse_file(test_file):
 
     return no_doc_count, total_tests, mismatch_name
 
+def print_mismatched(items):
+    if len(items) == 0:
+        return
+    print("Mismatched")
+    for item in items:
+        print(" <- ".join(item.split("|")))
+    print("-------------------------------------")
+
 
 def document_helper(argument):
     is_file = path.isfile(argument)
@@ -82,6 +90,7 @@ def document_helper(argument):
         print(f"Total Tests in dir: {total_tests}")
         print(f"Need docs in dir  : {no_doc_count}")
         print("-------------------------------------")
+        print_mismatched(mismatched)
 
 
 if __name__ == "__main__":
