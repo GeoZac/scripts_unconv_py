@@ -49,8 +49,10 @@ def parse_file(test_file):
             )
         )
 
+    print("-------------------------------------")
     print(f"Total Tests: {total_tests}")
     print(f"Need docs  : {no_doc_count}")
+    print("-------------------------------------")
 
     return no_doc_count, total_tests
 
@@ -68,8 +70,10 @@ def document_helper(argument):
             no_doc_count += a
             total_tests += b
 
+        print("-------------------------------------")
         print(f"Total Tests in dir: {total_tests}")
         print(f"Need docs in dir  : {no_doc_count}")
+        print("-------------------------------------")
 
 
 if __name__ == "__main__":
