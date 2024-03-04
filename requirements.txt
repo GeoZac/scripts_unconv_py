@@ -50,7 +50,7 @@ setuptools==69.0.3
 six==1.16.0
 smmap==5.0.1
 soupsieve==2.5
-tomlkit==0.12.1
+tomlkit==0.12.4
 tornado==6.4
 tzdata==2023.3
 tzlocal==5.1
