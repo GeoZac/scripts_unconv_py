@@ -1,6 +1,7 @@
 import sys
 from app_config import *
-from requests import Response, get
+from requests import Response, get, post
+from json import dumps
 
 
 def print_as_header(header):
@@ -16,6 +17,14 @@ def handle_app_found(reponse: Response):
     sys.exit()
 
 
+def handle_improper_login(response: Response):
+    status_code = response.status_code
+    print(status_code)
+    if status_code == 400:
+        print("Check credentials")
+    sys.exit()
+
+
 def run_version_check():
     print_as_header("Version check")
     response = get(
@@ -27,8 +36,25 @@ def run_version_check():
     print("App version", response.content.decode())
 
 
+def login():
+    creads = {"username": USERNAME, "password": PASSWORD}
+
+    response = post(BASE_URL + AUTH_END, dumps(creads))
+    if response.status_code != 200:
+        handle_improper_login(response)
+    json_resp = response.json()
+    unconv_user = json_resp["unconvUser"]
+    print_as_header("Logged in as user")
+    print("Username", unconv_user["username"])
+    print("E-mail  ", unconv_user["email"])
+    token = json_resp["token"]
+
+    return token, unconv_user
+
+
 def run_app_checks():
     run_version_check()
+    token, user = login()
 
 
 if __name__ == "__main__":
