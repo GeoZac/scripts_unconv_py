@@ -12,3 +12,6 @@ violations.json
 # gmail spammers
 credentials.json
 token.json
+
+# app check script
+app_config.py

@@ -1,0 +1,6 @@
+# Constants
+VERS_CHK = "public/status/version"
+
+# Variables
+BASE_URL = "<base_url_here>"
+
