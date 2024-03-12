@@ -3,7 +3,9 @@ import glob
 import re
 import sys
 
-method_pattern = re.compile(r"@Test\s*.*\s*void\s+(\w+)\s*\(\s*\)([\s\S]*?)\}")
+method_pattern = re.compile(
+    r"@Test\s*.*?\s*void\s+(\w+)\s*\(\s*\)([\s\S]*?)(?=@Test|$)"
+)
 
 FORMAT_CONTENT = "\n\tpreprocessRequest(prettyPrint),"
 METHOD_STUB = """
