@@ -36,8 +36,8 @@ def run_version_check():
     )
     if response.status_code != 200:
         handle_app_found(response)
-    print("Status code", response.status_code)
-    print("App version", response.content.decode())
+    print("Status code :", response.status_code)
+    print("App version :", response.content.decode())
 
 
 def login():
@@ -49,8 +49,8 @@ def login():
     json_resp = response.json()
     unconv_user = json_resp["unconvUser"]
     print_as_header("Logged in as user")
-    print("Username", unconv_user["username"])
-    print("E-mail  ", unconv_user["email"])
+    print("Username:", unconv_user["username"])
+    print("E-mail  :", unconv_user["email"])
     token = json_resp["token"]
 
     return token, unconv_user
