@@ -2,6 +2,7 @@ import sys
 from app_config import *
 from requests import Response, get, post
 from json import dumps
+from app_utils import display_sensor_table
 
 HTTP_TIMEOUT = 5
 
@@ -55,9 +56,29 @@ def login():
     return token, unconv_user
 
 
+def list_sensor_systems(user_id, auth_token):
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {auth_token}",
+    }
+    response = get(
+        BASE_URL + USER_SEN + user_id,
+        headers=headers,
+        timeout=HTTP_TIMEOUT,
+    )
+    json_resp = response.json()
+    print_as_header("Sensor Info")
+    print("Sensor Count:", json_resp["totalElements"])
+    display_sensor_table(json_resp["data"])
+
+
 def run_app_checks():
     run_version_check()
     token, user = login()
+    list_sensor_systems(
+        user["id"],
+        token,
+    )
 
 
 if __name__ == "__main__":
