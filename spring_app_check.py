@@ -32,7 +32,7 @@ def run_version_check():
     print_as_header("Version check")
     response = get(
         BASE_URL + VERS_CHK,
-        timeout= HTTP_TIMEOUT
+        timeout=HTTP_TIMEOUT,
     )
     if response.status_code != 200:
         handle_app_found(response)
@@ -41,9 +41,16 @@ def run_version_check():
 
 
 def login():
-    creads = {"username": USERNAME, "password": PASSWORD}
+    creads = {
+        "username": USERNAME,
+        "password": PASSWORD,
+    }
 
-    response = post(BASE_URL + AUTH_END, dumps(creads), timeout=HTTP_TIMEOUT)
+    response = post(
+        BASE_URL + AUTH_END,
+        dumps(creads),
+        timeout=HTTP_TIMEOUT,
+    )
     if response.status_code != 200:
         handle_improper_login(response)
     json_resp = response.json()
