@@ -86,6 +86,16 @@ def login():
     return token, unconv_user
 
 
+def list_sensor_auth_tokens(sensors, token):
+    print_as_header("Sensor auth tokens")
+    for sensor in sensors:
+        sensor_id = sensor["id"]
+        fetch_sensor_token(
+            sensor_id,
+            token,
+        )
+
+
 def list_sensor_systems(user_id, auth_token):
     headers = {
         "Content-Type": "application/json",
@@ -108,6 +118,10 @@ def run_app_checks():
     token, user = login()
     sensors = list_sensor_systems(
         user["id"],
+        token,
+    )
+    list_sensor_auth_tokens(
+        sensors,
         token,
     )
 
