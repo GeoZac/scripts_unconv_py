@@ -1,6 +1,7 @@
+from datetime import datetime
+
 from rich.console import Console
 from rich.table import Table
-from datetime import datetime
 
 
 def value_or_alt(value, alt="-"):
@@ -79,3 +80,4 @@ def get_expiry_duration(expiry_string):
     if days_delta > 365:
         days_delta = int(days_delta / 30)
         return f"Expiry in {days_delta} months"
+    return "Failed to parse expiry"
