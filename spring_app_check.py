@@ -77,12 +77,13 @@ def list_sensor_systems(user_id, auth_token):
     print_as_header("Sensor Info")
     print("Sensor Count:", json_resp["totalElements"])
     display_sensor_table(json_resp["data"])
+    return json_resp["data"]
 
 
 def run_app_checks():
     run_version_check()
     token, user = login()
-    list_sensor_systems(
+    sensors = list_sensor_systems(
         user["id"],
         token,
     )
