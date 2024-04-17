@@ -1,5 +1,6 @@
 from rich.console import Console
 from rich.table import Table
+from datetime import datetime
 
 
 def value_or_alt(value, alt="-"):
@@ -58,3 +59,23 @@ def display_sensor_table(sensor_list):
         )
 
     console.print(table)
+
+
+def get_expiry_duration(expiry_string):
+    expiry_date = datetime.fromisoformat(
+        expiry_string[:-1],
+    )
+    current_date = datetime.now()
+    delta = expiry_date - current_date
+
+    days_delta = delta.days
+    if days_delta < 0:
+        return "Expired"
+    if days_delta < 30:
+        return f"Expiry in {days_delta} days"
+    if days_delta < 60:
+        days_delta = int(days_delta / 7)
+        return f"Expiry in {days_delta} weeks"
+    if days_delta > 365:
+        days_delta = int(days_delta / 30)
+        return f"Expiry in {days_delta} months"
