@@ -2,7 +2,7 @@ import sys
 from app_config import *
 from requests import Response, get, post
 from json import dumps
-from app_utils import display_sensor_table
+from app_utils import display_sensor_table, get_expiry_duration
 
 HTTP_TIMEOUT = 5
 
@@ -18,6 +18,29 @@ def handle_app_found(reponse: Response):
     if status_code == 404:
         print("App not found")
     sys.exit()
+
+
+def fetch_sensor_token(sensor_id, auth_token):
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {auth_token}",
+    }
+    response = get(
+        BASE_URL + SEN_AUTH + sensor_id,
+        timeout=HTTP_TIMEOUT,
+        headers=headers,
+    )
+    if response.status_code == 200:
+        resp_json = response.json()
+        print(
+            sensor_id,
+            resp_json["authToken"],
+            resp_json["expiry"],
+            get_expiry_duration(
+                resp_json["expiry"],
+            ),
+            sep="\t",
+        )
 
 
 def handle_improper_login(response: Response):
