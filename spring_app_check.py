@@ -1,5 +1,6 @@
 import sys
 from app_config import *
+from app_constants import VERS_CHK, AUTH_END, USER_SEN, SEN_AUTH
 from requests import Response, get, post
 from json import dumps
 from app_utils import display_sensor_table, get_expiry_duration
