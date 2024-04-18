@@ -42,6 +42,12 @@ def fetch_sensor_token(sensor_id, auth_token):
             ),
             sep="\t",
         )
+    elif response.status_code == 204:
+        print(
+            sensor_id,
+            "No SensorAuthToken generated",
+            sep="\t"
+        )
 
 
 def handle_improper_login(response: Response):
