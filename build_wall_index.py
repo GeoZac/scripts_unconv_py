@@ -40,7 +40,7 @@ def push_gist(gist_cn):
 
 
 def make_unsplash_api_call(page_no):
-    u_api_url = f"https://api.unsplash.com/search/photos"
+    u_api_url = "https://api.unsplash.com/search/photos"
     params = {
         "query": "wallpapers",
         "orientation": "portrait",
