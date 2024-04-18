@@ -1,9 +1,3 @@
-# Constants
-VERS_CHK = "public/status/version"
-AUTH_END = "auth/login"
-USER_SEN = "SensorSystem/UnconvUser/"
-SEN_AUTH = "SensorAuthToken/SensorSystem/"
-
 # Variables
 BASE_URL = "<base_url_here>"
 USERNAME = "<username_here>"
