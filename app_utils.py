@@ -29,7 +29,10 @@ def display_sensor_table(sensor_list):
         show_header=True,
         header_style="bold magenta",
     )
-    table.add_column("Sensor Id")
+    table.add_column(
+        "Sensor Id",
+        min_width=36,
+    )
     table.add_column("Sensor name")
     table.add_column(
         "Description",
