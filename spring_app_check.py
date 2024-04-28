@@ -58,6 +58,26 @@ def handle_improper_login(response: Response):
     sys.exit()
 
 
+def fetch_readings(sensor_id, token):
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {token}",
+    }
+    params = {
+        "pageNo": 0,
+        "sortDir": "desc",
+        "sortBy": "timestamp",
+        "pageSize": 100,
+    }
+    response = get(
+        BASE_URL + SENS_RDS + sensor_id,
+        headers=headers,
+        timeout=HTTP_TIMEOUT,
+        params=params,
+    )
+    resp_json = response.json()
+
+
 def run_version_check():
     print_as_header("Version check")
     response = get(
