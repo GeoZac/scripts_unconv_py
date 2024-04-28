@@ -67,6 +67,7 @@ def run_version_check():
     if response.status_code != 200:
         handle_app_found(response)
     print("Status code :", response.status_code)
+    print("Time elapsed:", response.elapsed)
     print("App version :", response.content.decode())
 
 
@@ -86,6 +87,7 @@ def login():
     json_resp = response.json()
     unconv_user = json_resp["unconvUser"]
     print_as_header("Logged in as user")
+    print("Time elapsed:", response.elapsed)
     print("Username:", unconv_user["username"])
     print("E-mail  :", unconv_user["email"])
     token = json_resp["token"]
@@ -115,6 +117,7 @@ def list_sensor_systems(user_id, auth_token):
     )
     json_resp = response.json()
     print_as_header("Sensor Info")
+    print("Time elapsed:", response.elapsed)
     print("Sensor Count:", json_resp["totalElements"])
     display_sensor_table(json_resp["data"])
     return json_resp["data"]
