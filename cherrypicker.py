@@ -136,6 +136,10 @@ def setup_project(args, verbose=False):
         # Kill the blocklist if searching LineageOS gerrit
         global BLOCK_LIST
         BLOCK_LIST = []
+    elif args.R == "omni":
+        msg = "Hi neighbour"
+        addr = "https://gerrit.omnirom.org"
+        base_branch = args.B if args.B is not None else "android-14.0"
     elif args.R is not None:
         msg = "Who dis?"
         addr = args.R
