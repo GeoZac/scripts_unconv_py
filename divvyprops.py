@@ -31,7 +31,7 @@ def combine_prop_keys(combined_props, props_to_combine, partition):
             combined_props.append(dump_systemext_prop)
         else:
             print(f"Overridden prop in {partition}:", dump_systemext_prop[0])
-    logging.debug("%s props after %s", len(combined_props), partition)
+    logging.info("%s props after %s", len(combined_props), partition)
 
     return combined_props
 
@@ -57,7 +57,7 @@ def read_prop_file(prop_file, dump=False, footer=None, blocked=None):
                 continue
             props.append([key, value])
         except ValueError:
-            logging.debug("ValueError %s", raw_prop)
+            logging.warning("ValueError %s", raw_prop)
             continue
     return props
 
@@ -154,7 +154,7 @@ def collect_props_from_dump(props_dir):
     ) = read_props_from_dump(dump_prop_files)
 
     dump_combined_props = list(dump_system_props)
-    logging.debug("%s props in system", len(dump_combined_props))
+    logging.info("%s props in system", len(dump_combined_props))
 
     dump_combined_props = combine_prop_keys(dump_combined_props, dump_systemext_props, "system_ext")
 
@@ -186,7 +186,7 @@ def collect_props_from_tree(props_dir):
     ) = read_props_from_tree(tree_prop_files)
 
     tree_combined_props = list(tree_system_props)
-    logging.debug("%s props in system", len(tree_combined_props))
+    logging.info("%s props in system", len(tree_combined_props))
 
     tree_combined_props = combine_prop_keys(tree_combined_props, tree_systemext_props, "system_ext")
 
