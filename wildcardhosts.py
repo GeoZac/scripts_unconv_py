@@ -5,7 +5,14 @@ import sys
 def replace_with_wildcards(args):
     new = []
 
-    with open(join(dirname(realpath(__file__)), "spam_domains"), "r", encoding="utf-8") as index_file:
+    with open(
+        join(
+            dirname(realpath(__file__)),
+            "spam_domains",
+        ),
+        "r",
+        encoding="utf-8",
+    ) as index_file:
         spam_domains = index_file.read().splitlines()
 
     # Inform me of any duplicates
@@ -19,11 +26,19 @@ def replace_with_wildcards(args):
     else:
         raise ValueError(f"Wrong number of arguments {len(args)}")
 
-    with open(input_file_path, "r", encoding="utf-8") as fip:
+    with open(
+        input_file_path,
+        "r",
+        encoding="utf-8",
+    ) as fip:
         new = fip.readlines()
         print("Initial size: ", len(new))
 
-    with open(join(output_file_path, "hosts_unconv_w"), "w", encoding="utf-8") as fop:
+    with open(
+        join("hosts_unconv_w"),
+        "w",
+        encoding="utf-8",
+    ) as fop:
         i = 0
         for redirect in new:
             if any(item in redirect for item in spam_domains):
@@ -37,4 +52,6 @@ def replace_with_wildcards(args):
 
 
 if __name__ == "__main__":
-    replace_with_wildcards(sys.argv[1:])
+    replace_with_wildcards(
+        sys.argv[1:],
+    )
