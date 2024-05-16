@@ -39,8 +39,10 @@ def parse_file(test_file):
             has_document = False
             no_doc_count += 1
         else:
-            doc_name = re.search(r'document\(\s*["\'](\w+)["\']', method_content).group(1)
-            
+            doc_name = re.search(
+                r'document\(\s*["\'](\w+)["\']',
+                method_content,
+            ).group(1)
             if doc_name != method_name:
                 mismatch_name.append(f"{method_name}|{doc_name}")
 
