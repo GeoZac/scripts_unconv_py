@@ -24,12 +24,12 @@ def parse_file(test_file):
     matches = re.finditer(method_pattern, java_code)
 
     found_test = False
-    has_document = False
     total_tests = 0
     no_doc_count = 0
     mismatch_name = []
 
     for match in matches:
+        has_document = True
         total_tests += 1
         request_arg = ""
         method_name = match.group(1)
