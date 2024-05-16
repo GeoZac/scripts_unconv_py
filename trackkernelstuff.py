@@ -59,9 +59,10 @@ def track_aosp_clang():
     if log:
         for items in log[:7]:
             commit = items.find_all("a")
-            print(  # str(commit[1]['href']).split("/")[-1], # the commit ID
+            print(
+                str(commit[1]["href"]).split("/")[-1],  # the commit ID
                 commit[1].get_text(),  # the commit message
-                sep="\t"
+                sep="\t",
             )
 
 
@@ -71,7 +72,11 @@ def track_linux_stable(r_c=False, r_v=None):
     links = soup.find_all("table", {"class": "list nowrap"})
     for link in links[0].contents[2].find_all("td")[:-3]:
         if "linux" in link.get_text():
-            print(str(link.get_text()).replace(f"v{r_v}", f"\nv{r_v}").replace("li", "\nli"))
+            print(
+                str(link.get_text())
+                .replace(f"v{r_v}", f"\nv{r_v}")
+                .replace("li", "\nli")
+            )
         else:
             print(link.get_text())
 
