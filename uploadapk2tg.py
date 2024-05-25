@@ -171,6 +171,11 @@ def upload_apk_to_tg(current_dir):
         ndigits=2,
     )
 
+    # Fail if file is bigger than 50MB
+    if file_size > 50:
+        print("File exceeds Telegram's limit")
+        sys.exit
+
     commit_hist = build_commit_log(current_dir)
     msg_content = (
         f"Uploading compiled app\n"
