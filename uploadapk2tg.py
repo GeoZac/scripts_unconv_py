@@ -31,7 +31,14 @@ def get_repo_info(dir_path):
         return None
 
 
-def upload_via_bot(bot_token, chat_id, msg_content, apk_file, project_name, version_name):
+def upload_via_bot(
+    bot_token,
+    chat_id,
+    msg_content,
+    apk_file,
+    project_name,
+    version_name,
+):
     # Init the Bot
     bot = Bot(token=bot_token)
 
@@ -149,9 +156,20 @@ def upload_apk_to_tg(current_dir):
     version_name, version_code, variant_type = parse_json_info(apk_info)
 
     build_time = dt.fromtimestamp(
-        path.getmtime(apk_file)).strftime("%H:%M %d/%m")
+        path.getmtime(
+            apk_file,
+        ),
+    ).strftime(
+        "%H:%M %d/%m",
+    )
 
-    file_size = round(path.getsize(apk_file) / (1024 * 1024), ndigits=2,)
+    file_size = round(
+        path.getsize(
+            apk_file,
+        )
+        / (1024 * 1024),
+        ndigits=2,
+    )
 
     commit_hist = build_commit_log(current_dir)
     msg_content = (
@@ -187,7 +205,14 @@ def main():
         return
     current_dir = set_path()
     msg_content, apk_file, project_name, version_name = upload_apk_to_tg(current_dir)
-    upload_via_bot(bot_token, cid_token, msg_content, apk_file, project_name, version_name)
+    upload_via_bot(
+        bot_token,
+        cid_token,
+        msg_content,
+        apk_file,
+        project_name,
+        version_name,
+    )
 
 
 if __name__ == "__main__":
