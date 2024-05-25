@@ -3,6 +3,7 @@ import os
 
 CONTENT_TYPE = "application/problem+json"
 
+
 def print_violations(data):
     java_code = "\n"
 
@@ -30,7 +31,11 @@ def assertions_convertor(
 
     file_path = os.path.join(script_dir, file_name)
 
-    with open(file_path, "r", encoding="utf-8") as json_file:
+    with open(
+        file_path,
+        "r",
+        encoding="utf-8",
+    ) as json_file:
         data = json.load(json_file)
 
     print_violations(data)
