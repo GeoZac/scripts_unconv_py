@@ -69,6 +69,10 @@ def track_aosp_clang():
                 commit[1].get_text(),  # the commit message
                 sep="\t",
             )
+    else:
+        print(
+            "Check manually, goolag may have changed tags",
+        )
 
 
 def track_linux_stable(r_c=False, r_v=None):
