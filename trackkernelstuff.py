@@ -55,7 +55,7 @@ def make_soup(url):
 
 def track_aosp_clang():
     soup = make_soup(AOSP_CLANG_REPO)
-    log = soup.find_all("li", {"class": "CommitLog-item CommitLog-item--default"})
+    log = soup.find_all("li", {"class": "CommitLog-item CommitLog-item--androidOneline"})
     if log:
         for items in log[:7]:
             commit = items.find_all("a")
