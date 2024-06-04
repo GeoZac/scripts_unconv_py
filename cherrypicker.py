@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 # Spice up the output
 from colorama import init, deinit, Fore  # Back, Style
 from pygerrit2 import GerritRestAPI
-from pyperclip import copy
+from pyperclip import copy, PyperclipException
 
 from xtrasforcherrypicker import BLACKLIST, UPSTREAM, WHITELIST
 
@@ -324,7 +324,10 @@ def present_changes(args, skipped, merged):
         print(DASHES)
         pick_string = f"repopick {numbers}-c {cherry_picked}"
         print(Fore.CYAN, f"\b{pick_string}")
-        copy(pick_string)
+        try:
+            copy(pick_string)
+        except PyperclipException:
+            pass
         if PROJECTS.get(fwb, None):  # Not all queries may have a change in fwb
             fwb_changes = PROJECTS[fwb]["numbers"]
             print(Fore.CYAN, "\brepopick", " ".join(str(x) for x in fwb_changes), "-c", args.F + len(fwb_changes))
