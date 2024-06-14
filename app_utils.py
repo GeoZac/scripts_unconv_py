@@ -36,7 +36,6 @@ def display_sensor_table(sensor_list):
     table.add_column("Sensor name")
     table.add_column(
         "Description",
-        max_width=40,
         overflow="crop",
     )
     table.add_column("Status")
