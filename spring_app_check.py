@@ -1,6 +1,6 @@
 import sys
 from app_config import *
-from app_constants import VERS_CHK, AUTH_END, USER_SEN, SEN_AUTH, SENS_RDS
+from app_constants import VERS_CHK, AUTH_END, USER_SEN, SEN_AUTH, SENS_RDS, RECE_RDS
 from requests import Response, get, post
 from json import dumps
 from app_utils import display_sensor_table, get_expiry_duration
@@ -76,6 +76,32 @@ def fetch_readings(sensor_id, token):
         params=params,
     )
     resp_json = response.json()
+
+
+def list_recent_readings(user_id, auth_token):
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {auth_token}",
+    }
+    response = get(
+        BASE_URL + RECE_RDS + user_id,
+        headers=headers,
+        timeout=HTTP_TIMEOUT,
+    )
+    json_resp = response.json()
+    print_as_header("Recent readings")
+    print("Time elapsed:", response.elapsed)
+    print("Readings count:", len(json_resp))
+    for item in json_resp:
+        print(
+            item["timestamp"],
+            item["temperature"],
+            item["humidity"],
+            item["sensorSystem"]["id"],
+            item["sensorSystem"]["sensorName"],
+            sep="\t",
+        )
+    return None
 
 
 def run_version_check():
