@@ -76,9 +76,12 @@ def get_expiry_duration(expiry_string):
         return "Expired"
     if days_delta < 30:
         return f"Expiry in {days_delta} days"
-    if days_delta < 60:
+    if days_delta < 180:
         days_delta = int(days_delta / 7)
         return f"Expiry in {days_delta} weeks"
+    if days_delta < 365:
+        days_delta = int(days_delta / 30)
+        return f"Expiry in {days_delta} months"
     if days_delta > 365:
         days_delta = int(days_delta / 30)
         return f"Expiry in {days_delta} months"
