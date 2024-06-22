@@ -11,6 +11,7 @@ from git import Repo
 from git.exc import InvalidGitRepositoryError
 from telegram import Bot
 from telegram.constants import ParseMode
+from telegram.error import NetworkError
 from telegram.helpers import escape_markdown
 
 
@@ -43,30 +44,38 @@ async def upload_via_bot(
     # Init the Bot
     bot = Bot(token=bot_token)
 
-    # Send the info message
-    await bot.sendMessage(
-        chat_id=chat_id,
-        text=f"{msg_content}",
-        disable_notification=False,
-        parse_mode=ParseMode.MARKDOWN_V2,
-    )
+    try:
+        # Send the info message
+        await bot.sendMessage(
+            chat_id=chat_id,
+            text=f"{msg_content}",
+            disable_notification=False,
+            parse_mode=ParseMode.MARKDOWN_V2,
+        )
+    except NetworkError:
+        pass
 
     # Rename to avoid generic artficat name
     file_name = path.split(apk_file)[-1].replace("app", project_name)
 
     # Upload the file
     with open(apk_file, "rb") as sent_file:
-        await bot.sendDocument(
-            filename=file_name,
-            chat_id=chat_id,
-            document=sent_file,
-            caption=escape_markdown(
-                f"#{project_name} {version_name}", version=2, entity_type="CODE"
-            ),
-            disable_notification=False,
-            parse_mode=ParseMode.MARKDOWN_V2,
-            timeout=2000,
-        )
+        try:
+            await bot.sendDocument(
+                filename=file_name,
+                chat_id=chat_id,
+                document=sent_file,
+                caption=escape_markdown(
+                    f"#{project_name} {version_name}", version=2, entity_type="CODE"
+                ),
+                disable_notification=False,
+                parse_mode=ParseMode.MARKDOWN_V2,
+                timeout=2000,
+            )
+        except NetworkError as e:
+            print(e.with_traceback)
+            print(e.message)
+            # pass
 
 
 def get_branch_info(git_dir):
