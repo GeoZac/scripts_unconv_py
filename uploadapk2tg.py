@@ -9,8 +9,8 @@ from os import getcwd, getenv, path
 from git import Repo
 from git.exc import InvalidGitRepositoryError
 from telegram import Bot
-from telegram.parsemode import ParseMode
-from telegram.utils.helpers import escape_markdown
+from telegram.constants import ParseMode
+from telegram.helpers import escape_markdown
 
 
 def set_path():
