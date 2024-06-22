@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import asyncio
 import sys
 from datetime import datetime as dt
 from glob import glob
@@ -31,7 +32,7 @@ def get_repo_info(dir_path):
         return None
 
 
-def upload_via_bot(
+async def upload_via_bot(
     bot_token,
     chat_id,
     msg_content,
@@ -43,7 +44,7 @@ def upload_via_bot(
     bot = Bot(token=bot_token)
 
     # Send the info message
-    bot.sendMessage(
+    await bot.sendMessage(
         chat_id=chat_id,
         text=f"{msg_content}",
         disable_notification=False,
@@ -55,7 +56,7 @@ def upload_via_bot(
 
     # Upload the file
     with open(apk_file, "rb") as sent_file:
-        bot.sendDocument(
+        await bot.sendDocument(
             filename=file_name,
             chat_id=chat_id,
             document=sent_file,
@@ -198,7 +199,7 @@ def upload_apk_to_tg(current_dir):
     return msg_content, apk_file, project_name, version_name
 
 
-def main():
+async def main():
     bot_token = getenv("APK_BOT_TOKEN", None)
     cid_token = getenv("APK_TGCHAT_ID", None)
     if bot_token is None or cid_token is None:
@@ -210,7 +211,7 @@ def main():
         return
     current_dir = set_path()
     msg_content, apk_file, project_name, version_name = upload_apk_to_tg(current_dir)
-    upload_via_bot(
+    await upload_via_bot(
         bot_token,
         cid_token,
         msg_content,
@@ -221,4 +222,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(
+        main(),
+    )
