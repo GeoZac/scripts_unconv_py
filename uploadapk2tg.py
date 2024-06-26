@@ -70,7 +70,9 @@ async def upload_via_bot(
                 ),
                 disable_notification=False,
                 parse_mode=ParseMode.MARKDOWN_V2,
-                timeout=2000,
+                connect_timeout=2000,
+                write_timeout=2000,
+                read_timeout=2000,
             )
         except NetworkError as e:
             print(e.with_traceback)
