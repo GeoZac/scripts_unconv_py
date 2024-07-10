@@ -50,11 +50,17 @@ def fetch_sensor_token(sensor_id, auth_token):
         )
 
 
-def handle_improper_login(response: Response):
+def handle_improper_login(
+    response: Response,
+    should_exit: bool = True,
+):
     status_code = response.status_code
     print(status_code)
     if status_code == 400:
         print("Check credentials")
+
+    if not should_exit:
+        return
     sys.exit()
 
 
