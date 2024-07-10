@@ -2,6 +2,8 @@ from datetime import datetime
 
 from rich.console import Console
 from rich.table import Table
+from random import choices, shuffle
+from string import ascii_uppercase, ascii_lowercase, digits
 
 
 def value_or_alt(value, alt="-"):
@@ -13,6 +15,21 @@ def value_or_alt(value, alt="-"):
             ndigits=3,
         ),
     )
+
+
+def generate_random_string(length: str):
+    return "".join(
+        choices(
+            ascii_uppercase + ascii_lowercase + digits,
+            k=length,
+        )
+    )
+
+
+def shuffle_string(string: str):
+    string_list = list(string)
+    shuffle(string_list)
+    return "".join(string_list)
 
 
 def find_location(sensor: dict):
