@@ -3,7 +3,7 @@ from app_config import *
 from app_constants import VERS_CHK, AUTH_END, USER_SEN, SEN_AUTH, SENS_RDS, RECE_RDS
 from requests import Response, get, post
 from json import dumps
-from app_utils import display_sensor_table, get_expiry_duration
+from app_utils import display_sensor_table, get_expiry_duration, shuffle_string
 
 HTTP_TIMEOUT = 5
 
@@ -121,6 +121,26 @@ def run_version_check():
     print("Status code :", response.status_code)
     print("Time elapsed:", response.elapsed)
     print("App version :", response.content.decode())
+
+
+def test_unathorised_login():
+    creads = {
+        "username": USERNAME,
+        "password": shuffle_string(
+            PASSWORD,
+        ),
+    }
+
+    response = post(
+        BASE_URL + AUTH_END,
+        dumps(creads),
+        timeout=HTTP_TIMEOUT,
+    )
+    if response.status_code != 200:
+        handle_improper_login(
+            response,
+            False,
+        )
 
 
 def login():
