@@ -85,6 +85,8 @@ def handle_improper_login(
     print(status_code)
     if status_code == 400:
         print("Check credentials")
+    elif status_code == 401:
+        print(response.content.decode())
 
     if not should_exit:
         return
