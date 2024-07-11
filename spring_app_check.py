@@ -21,6 +21,27 @@ def handle_app_found(reponse: Response):
     sys.exit()
 
 
+def test_username_checks():
+    headers = {
+        "Content-Type": "application/json",
+    }
+    for i in range(0, 5):
+        username = generate_random_string(
+            length=7,
+        )
+        response = get(
+            BASE_URL + USNM_CHK + username,
+            timeout=HTTP_TIMEOUT,
+            headers=headers,
+        )
+        print(
+            username,
+            "-",
+            response.json()["available"],
+            sep="\t",
+        )
+
+
 def fetch_sensor_token(sensor_id, auth_token):
     headers = {
         "Content-Type": "application/json",
