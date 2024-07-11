@@ -25,10 +25,16 @@ def test_username_checks():
     headers = {
         "Content-Type": "application/json",
     }
+    usernames = [
+        USERNAME,
+    ]
     for i in range(0, 5):
-        username = generate_random_string(
-            length=7,
+        usernames.append(
+            generate_random_string(
+                length=7,
+            )
         )
+    for username in usernames:
         response = get(
             BASE_URL + USNM_CHK + username,
             timeout=HTTP_TIMEOUT,
