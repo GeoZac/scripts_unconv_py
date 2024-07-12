@@ -1,9 +1,9 @@
 from datetime import datetime
+from random import choices, shuffle
+from string import ascii_uppercase, ascii_lowercase, digits
 
 from rich.console import Console
 from rich.table import Table
-from random import choices, shuffle
-from string import ascii_uppercase, ascii_lowercase, digits
 
 
 def value_or_alt(value, alt="-"):
