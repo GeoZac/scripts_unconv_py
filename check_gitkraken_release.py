@@ -14,7 +14,14 @@ def check_gitkraken_release():
         resp_headers["last-modified"],
     )
     print(
-        resp_headers["Content-Length"],
+        round(
+            int(
+                resp_headers["Content-Length"],
+            )
+            / (1024 * 1024),
+            ndigits=2,
+        ),
+        "MB",
     )
 
 
