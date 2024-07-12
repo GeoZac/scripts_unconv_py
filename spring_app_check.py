@@ -22,6 +22,7 @@ def handle_app_found(reponse: Response):
 
 
 def test_username_checks():
+    print_as_header("Username checks")
     headers = {
         "Content-Type": "application/json",
     }
@@ -153,6 +154,7 @@ def run_version_check():
 
 
 def test_unathorised_login():
+    print_as_header("Unathorised login")
     creads = {
         "username": USERNAME,
         "password": shuffle_string(
