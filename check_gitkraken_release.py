@@ -13,6 +13,9 @@ def check_gitkraken_release():
     print(
         resp_headers['last-modified']
     )
+    print(
+        resp_headers["Content-Length"],
+    )
 
 
 if __name__ == "__main__":
