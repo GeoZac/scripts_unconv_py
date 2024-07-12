@@ -226,8 +226,14 @@ def list_sensor_systems(user_id, auth_token):
 
 def run_app_checks():
     run_version_check()
+    test_unathorised_login()
+    test_username_checks()
     token, user = login()
     sensors = list_sensor_systems(
+        user["id"],
+        token,
+    )
+    list_recent_readings(
         user["id"],
         token,
     )
