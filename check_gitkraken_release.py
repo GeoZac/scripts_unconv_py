@@ -11,7 +11,7 @@ def check_gitkraken_release():
 
     resp_headers = response.headers
     print(
-        resp_headers['last-modified']
+        resp_headers["last-modified"],
     )
     print(
         resp_headers["Content-Length"],
