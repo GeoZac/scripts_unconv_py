@@ -17,3 +17,7 @@ token.json
 app_config.py
 
 spammer_distribution.html
+
+# Envt monitor data script
+env_monitor_secrets.py
+
